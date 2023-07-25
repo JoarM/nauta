@@ -1,0 +1,17 @@
+.popover {
+    display: none;
+}
+
+.popover[aria-hidden="false"] {
+    animation: fade__in 200ms ease forwards;
+    display: block;
+}
+
+@keyframes fade__in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

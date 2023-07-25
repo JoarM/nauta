@@ -1,0 +1,6 @@
+.wrapper {
+    --_sidemargin: 3rem;
+    margin-inline: auto;
+    width: min(1200px, calc(100% - var(--_sidemargin)));
+}
+
