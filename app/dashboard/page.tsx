@@ -1,18 +1,11 @@
 import { db } from "@/lib/firebase"
-import { Project } from "@/lib/schemas";
+import { Project, ReducedProject } from "@/lib/schemas";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore"
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import Projects from "@/components/dashboard/Projects";
 import styles from "./Dashboard.module.scss";
-
-type ReducedProject = {
-    title: string;
-    description: string;
-    owner: boolean;
-    id: string;
-}
+import { authOptions } from "@/lib/auth/authOptions";
 
 export default async function Dashboard() {
     const session = await getServerSession(authOptions);
@@ -31,6 +24,7 @@ export default async function Dashboard() {
             description: res.description,
             owner: res.owner === session.user?.email,
             id: doc.id,
+            members: res.members
         }
         projects.push(reduced);
     });
@@ -41,6 +35,7 @@ export default async function Dashboard() {
         <main className={styles.wrapper}>
             <Projects
             projects={projects}
+            email={session.user?.email as string}
             />
         </main>
     )

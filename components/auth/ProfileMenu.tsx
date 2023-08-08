@@ -1,8 +1,8 @@
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import ProfileDropdown from "./ProfileDropdown";
+import { authOptions } from "@/lib/auth/authOptions";
 
 export default async function ProfileMenu() {
     const session = await getServerSession(authOptions);
@@ -14,11 +14,10 @@ export default async function ProfileMenu() {
                 session={session}
                 />
             :
-                <Button variant="ghost">
-                    <Link href="/signin">Signin</Link>
+                <Button variant="ghost" asChild>
+                    <Link href="/signin">Sign in</Link>
                 </Button>
             }
-        </>
-            
+        </>   
     )
 }

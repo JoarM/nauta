@@ -64,8 +64,8 @@ export default function EditProject({
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button variant="ghost">
-                    <Settings2 className="w-4 h-4 mr-2"/>
-                    <span>Project settings</span>
+                    <Settings2 className="w-4 h-4 sm:mr-2"/>
+                    <span className="sm:inline hidden">Project settings</span>
                 </Button>
             </DialogTrigger>
             <DialogContent>

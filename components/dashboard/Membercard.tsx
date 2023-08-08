@@ -1,11 +1,49 @@
+"use client"
+
 import { Member } from "@/lib/schemas";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { UserX } from "lucide-react";
+import { arrayRemove, doc, updateDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import { useToast } from "../ui/use-toast";
+import { useRouter } from "next/navigation";
 
-export default function MemberCard({ member, owner } : { member: Member, owner: boolean }) {
+export default function MemberCard(
+    { 
+        member, 
+        owner, 
+        projectId, 
+    } 
+    : 
+    { 
+        member: Member; 
+        owner: boolean;
+        projectId: string;
+    }) 
+    {
+    const { toast } = useToast();
+    const router = useRouter();
+    
+    function removeUser() {
+        updateDoc(doc(db, "projects", projectId), {
+            memberEmails: arrayRemove(member.email),
+            members: arrayRemove(member),
+        })
+        .then(() => {
+            router.refresh();
+        })
+        .catch(() => {
+            toast({
+                title: "Error removing user",
+                description: "An error occured when removing the user please try again soon.",
+                duration: 5000,
+            })
+        });
+    }
+
     return (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 py-2" key={member.email}>
             <Avatar className="border">
                 <AvatarImage src={member.photoUrl as string | undefined} alt={member.name} loading="eager"/>
                 <AvatarFallback>{member.name}</AvatarFallback>
@@ -15,7 +53,7 @@ export default function MemberCard({ member, owner } : { member: Member, owner: 
                 <span className="text-sm leading-none text-muted-foreground">{ member.email }</span>
             </div>
             {!owner && 
-                <Button variant="destructive" size="icon" className="ml-auto">
+                <Button variant="destructive" size="icon" className="ml-auto" onClick={removeUser}>
                     <UserX className="w-4 h-4"/>
                     <span className="sr-only">Remove user</span>
                 </Button>

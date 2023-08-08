@@ -11,11 +11,10 @@ type Alert = {
 }
 
 type Project = {
-    createdAt: Timestamp;
+    createdAt: Timestamp | serverTimestamp;
     description: string;
     members: Member[];
     memberEmails: string[];
-    invites: string[];
     title: string;
     owner: string;
     stages: Stage[];
@@ -31,13 +30,13 @@ const ZodProject = z.object({
 
 type Stage = {
     tasks: Task[];
-    name: string;
+    title: string;
     id: string;
 }
 
 const ZodStage = z.string()
-.min(1, { message: "A stage must have a name."})
-.max(32, { message: "Stage names may not be more than 32 characthers." });
+.min(1, { message: "A stage must have a title."})
+.max(32, { message: "Stage titles may not be more than 32 characthers." });
 
 type Task = {
     id: string;
@@ -54,5 +53,31 @@ type Member = {
     email: string;
 }
 
-export type { Project, Stage, Alert, Member, Task };
-export { ZodTask, ZodStage, ZodProject };
+type ReducedProject = {
+    title: string;
+    description: string;
+    owner: boolean;
+    id: string;
+    members: Member[];
+}
+
+type FeedbackSchema = {
+    feedback: string,
+
+}
+
+const ZodFeedback = z.object({
+    feedback: z.string()
+    .min(1, { message: "Please enter your feedback" })
+    .max(128, { message: "Feedback length can not exceed 128 characthers" }),
+    rating: z.union([
+        z.literal("Awsome"),
+        z.literal("Good"),
+        z.literal("Meh"),
+        z.literal("Horrible")
+    ]),
+});
+ 
+
+export type { Project, Stage, Alert, Member, Task, ReducedProject };
+export { ZodTask, ZodStage, ZodProject, ZodFeedback };
