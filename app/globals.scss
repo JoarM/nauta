@@ -69,7 +69,7 @@
   width: min(512px, 100% - 3rem);
 }
 
-.h-screen-modern {
-  height: 100vh;
-  height: 100dvh;
+.max-h-screen-modern {
+  max-height: 100vh;
+  max-height: 100dvh;
 }

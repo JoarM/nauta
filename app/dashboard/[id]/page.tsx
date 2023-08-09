@@ -21,7 +21,7 @@ export default async function projectPage({ params }: { params: { id: string } }
     const project = data.data() as Project;
 
     return (
-        <div className="h-screen-modern max-w-full relative">
+        <>
             <header className="bg-primary py-1 px-8 font-semibold text-lg flex items-center">
                 <h1>{ project.title }</h1>
 
@@ -55,7 +55,6 @@ export default async function projectPage({ params }: { params: { id: string } }
             <main className="overflow-auto">
                 <PlanningBoard intialStages={project.stages} id={data.id}/>
             </main>
-        </div>
-            
+        </>
     )
 }
