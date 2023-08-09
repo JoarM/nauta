@@ -1,4 +1,13 @@
 import GithubSignin from "@/components/auth/GithubSignin";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Signin - Nauta",
+    description: "Welcome to Nauta. Signin with gitlab to start optimizing your planning.",
+    openGraph: {
+        images: "/og-general.png",
+    },
+}
 
 export default function signin() {
     return (
