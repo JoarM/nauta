@@ -6,6 +6,19 @@ import { redirect } from "next/navigation";
 import Projects from "@/components/dashboard/Projects";
 import styles from "./Dashboard.module.scss";
 import { authOptions } from "@/lib/auth/authOptions";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Dashboard - Nauta",
+    description: "Nauta dashboard",
+    openGraph: {
+        images: "/og-general.png",
+        url: "",
+    },
+    twitter: {
+        card: "summary",
+    },
+}
 
 export default async function Dashboard() {
     const session = await getServerSession(authOptions);
