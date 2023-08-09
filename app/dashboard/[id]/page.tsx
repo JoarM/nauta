@@ -21,11 +21,11 @@ export default async function projectPage({ params }: { params: { id: string } }
     const project = data.data() as Project;
 
     return (
-        <>
+        <div className="h-screen-modern max-w-full relative">
             <header className="bg-primary py-1 px-8 font-semibold text-lg flex items-center">
                 <h1>{ project.title }</h1>
 
-                {/* <Menubar className="ml-4 bg-primary">
+                <Menubar className="ml-4 bg-primary">
                     <MenubarMenu>
                         <AddStage
                         id={data.id}
@@ -50,11 +50,12 @@ export default async function projectPage({ params }: { params: { id: string } }
                             />
                         </MenubarMenu>
                     )}
-                </Menubar> */}
+                </Menubar>
             </header>
-            <main className="overflow-x-auto">
+            <main className="overflow-auto">
                 <PlanningBoard intialStages={project.stages} id={data.id}/>
             </main>
-        </>
+        </div>
+            
     )
 }
