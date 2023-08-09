@@ -106,6 +106,11 @@ export default function Navbar({ session } : { session: Session | null }) {
                                     Docs
                                 </Link>
                             </li>
+                            <li className="border-b">
+                                <Link href="/templates" className="hover:bg-background focus-visible:bg-background outline-none py-4 block text-muted-foreground transition-colors">
+                                    Templates
+                                </Link>
+                            </li>
                         </ul>
                         </nav>
                     </div>

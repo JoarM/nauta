@@ -7,6 +7,19 @@ import Elegance from "@/components/Launchpage/Elegance";
 import Link from "next/link";
 import Image from "next/image";
 import { Github, Twitter } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Nauta: Quick. Graceful. Planning. For the best dev teams",
+    description: "Nautas planning solutions gives developers the tools to optimize there workflow for a more efficent & coherent end result.",
+    openGraph: {
+        images: "/og-home.png",
+        url: "",
+    },
+    twitter: {
+        card: "summary_large_image",
+    },
+}
 
 export default async function Home() {
     const session = await getServerSession(authOptions);
