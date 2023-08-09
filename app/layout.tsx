@@ -1,13 +1,10 @@
-import { Toaster } from '@/components/ui/toaster'
-import './globals.scss'
-import type { Metadata } from 'next'
+import { Toaster } from '@/components/ui/toaster';
+import './globals.scss';
+import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: 'Nauta',
-  openGraph: {
-    images: "/og-general.png",
-    url: ""
-  },
 }
 
 export default function RootLayout({
@@ -20,6 +17,7 @@ export default function RootLayout({
       <body>
         {children}
         <Toaster />
+        <Analytics />
       </body>
     </html>
   )
