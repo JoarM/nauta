@@ -49,7 +49,7 @@ export default function Navbar({ session } : { session: Session | null }) {
                             <Menu className="w-4 h-4 group-aria-expanded:hidden"/>
                             <X className="w-4 h-4 hidden group-aria-expanded:block"/>
                         </Button>
-                        <nav className="navdrop absolute top-[61px] left-0 right-0 bg-primary hidden md:hidden group-aria-expanded:block px-6 z-50">
+                        <nav className="navdrop fixed top-[61px] left-0 right-0 bg-primary hidden md:hidden group-aria-expanded:block px-6 z-50">
                         {session ? 
                             <ul>
                                 <li className="py-4 flex justify-between items-center border-b">
