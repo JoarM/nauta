@@ -52,7 +52,7 @@ export default async function projectPage({ params }: { params: { id: string } }
                     )}
                 </Menubar>
             </header>
-            <main className="overflow-auto">
+            <main className="p-6 grid grid-flow-col gap-4 w-max max-w-full items-start justify-start overflow-auto">
                 <PlanningBoard intialStages={project.stages} id={data.id}/>
             </main>
         </>

@@ -72,9 +72,9 @@ export default function Projects({
                 
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button className="flex-shrink-0">
-                            <Plus className="mr-2 h-4 w-4"/>
-                            <span>Add project</span>
+                        <Button className="flex-shrink-0 p-0 sm:px-4 w-10 sm:w-auto">
+                            <Plus className="sm:mr-2 h-4 w-4"/>
+                            <span className="hidden sm:inline">Add project</span>
                         </Button>
                     </DialogTrigger>
                     <DialogContent>

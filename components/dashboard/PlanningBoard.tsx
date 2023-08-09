@@ -117,15 +117,13 @@ export default function PlanningBoard({ intialStages, id } : { intialStages: Sta
     }
 
     return (
-        <div className="grid grid-flow-col gap-4 p-6 w-max justify-start items-start">
-            <DndContext
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
-            collisionDetection={closestCenter}
-            >
-                {stages.map((stage, index) => <StageComponent {...stage} stages={stages} index={index} key={stage.id} projectId={id} />)}
-                <DragOverlay>{activeTask ? <DummyTask task={activeTask.task}/> : null}</DragOverlay>
-            </DndContext>
-        </div>
+        <DndContext
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+        collisionDetection={closestCenter}
+        >
+            {stages.map((stage, index) => <StageComponent {...stage} stages={stages} index={index} key={stage.id} projectId={id} />)}
+            <DragOverlay>{activeTask ? <DummyTask task={activeTask.task}/> : null}</DragOverlay>
+        </DndContext>
     )
 }

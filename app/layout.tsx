@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='max-w-screen max-h-screen-modern'>
+      <body>
         {children}
         <Toaster />
       </body>
