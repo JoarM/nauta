@@ -53,7 +53,7 @@ export default function ProfileDropdown(
                     <DropdownMenuSeparator className="mx-6 my-3"/>
                     <DropdownMenuGroup className="grid">
                         <Link 
-                        href="/" 
+                        href="/home" 
                         target="_blank"
                         className="px-6 py-1 hover:bg-background/90 focus-visible:bg-background/90 outline-none focus-visible:text-primary-foreground transition-colors text-primary-foreground/60 hover:text-primary-foreground flex justify-between items-center"
                         >

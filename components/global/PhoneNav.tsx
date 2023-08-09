@@ -63,7 +63,7 @@ export default function PhoneNav({ session }: { session: Session | null }) {
                         </Link>
                     </li>
                     <li className="border-b">
-                    <Link href="/" target="_blank" className="hover:bg-background focus-visible:bg-background outline-none py-4 flex justify-between items-center text-muted-foreground transition-colors ">
+                    <Link href="/home" target="_blank" className="hover:bg-background focus-visible:bg-background outline-none py-4 flex justify-between items-center text-muted-foreground transition-colors ">
                             Homepage
                             <ExternalLink className="w-4 h-4"/>
                         </Link>
