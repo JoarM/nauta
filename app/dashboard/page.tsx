@@ -10,9 +10,9 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Dashboard - Vercel",
+    description: "",
     openGraph: {
         images: "/og-general.png",
-        url: ""
     },
 }
 
