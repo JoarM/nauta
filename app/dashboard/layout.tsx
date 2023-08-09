@@ -4,6 +4,10 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Dashboard - Vercel",
+    openGraph: {
+        images: "/og-general.png",
+        url: ""
+    },
 }
 
 export default function DashboardRoot({ children } : { children: React.ReactNode }) {
