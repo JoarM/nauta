@@ -6,15 +6,6 @@ import { redirect } from "next/navigation";
 import Projects from "@/components/dashboard/Projects";
 import styles from "./Dashboard.module.scss";
 import { authOptions } from "@/lib/auth/authOptions";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-    title: "Dashboard - Vercel",
-    description: "",
-    openGraph: {
-        images: "/og-general.png",
-    },
-}
 
 export default async function Dashboard() {
     const session = await getServerSession(authOptions);
