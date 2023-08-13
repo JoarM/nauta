@@ -29,7 +29,7 @@ export default function Elegance() {
                             </span>
                             <span className="text-sm py-1 px-2 rounded flex items-center bg-primary-foreground text-primary flex-shrink-0">
                                 <Plus className="w-3 h-3 mr-2"/>
-                                Add
+                                <span className="hidden sm:inline">Add</span>
                             </span>
                         </div>
                         <div className="grid grid-cols-2 mt-3">
