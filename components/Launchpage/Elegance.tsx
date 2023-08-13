@@ -28,7 +28,7 @@ export default function Elegance() {
                                 Filter projects...
                             </span>
                             <span className="text-sm py-1 px-2 rounded flex items-center bg-primary-foreground text-primary flex-shrink-0">
-                                <Plus className="w-3 h-3 mr-2"/>
+                                <Plus className="w-3 h-3 sm:mr-2"/>
                                 <span className="hidden sm:inline">Add</span>
                             </span>
                         </div>
