@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
         rules: {
             userAgent: "*",
             allow: "/",
-            disallow: ["/dashboard/", "/invite/", "/api/"],
+            disallow: ["/dashboard/", "/invite/", "/api/", "/account/"],
         },
         sitemap: "nauta.vercel.app/sitemap.xml",
         host: "nauta.vercel.app"

@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation";
 import { ExternalLink } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { useTheme } from "next-themes";
 
 export default function ProfileDropdown(
     { 
@@ -21,6 +23,8 @@ export default function ProfileDropdown(
     const pathname = usePathname();
 
     const user = session.user;
+
+    const { theme, setTheme } = useTheme();
 
     return (
         <>
@@ -49,6 +53,22 @@ export default function ProfileDropdown(
                         >
                             Settings
                         </Link>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator className="mx-6 my-3" />
+                    <DropdownMenuGroup>
+                        <div className="px-6 py-1 flex items-center justify-between group">
+                            <span className="text-primary-foreground/60 group-hover:text-primary-foreground transition-colors">Theme</span>
+                            <Select value={theme} onValueChange={(e) => setTheme(e)}>
+                                <SelectTrigger className="p-2 h-8 text-sm bg-primary w-28">
+                                    <SelectValue placeholder="Theme" />
+                                </SelectTrigger>
+                                <SelectContent className="text-sm bg-background w-28">
+                                    <SelectItem value="dark">Dark</SelectItem>
+                                    <SelectItem value="light">Light</SelectItem>
+                                    <SelectItem value="system">System</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator className="mx-6 my-3"/>
                     <DropdownMenuGroup className="grid">

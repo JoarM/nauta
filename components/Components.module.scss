@@ -1,17 +1,12 @@
-.popover {
-    display: none;
-}
+.crossfade::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3rem;
 
-.popover[aria-hidden="false"] {
-    animation: fade__in 200ms ease forwards;
-    display: block;
-}
-
-@keyframes fade__in {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+    background: linear-gradient(to top, hsl(var(--primary)), transparent 35%);
+    mask: linear-gradient(to top, hsl(var(--primary)), transparent);
+    backdrop-filter: blur(20px);
 }

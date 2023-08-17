@@ -10,7 +10,7 @@ export default function Elegance() {
             </p>
 
             <div className="grid lg:grid-cols-2 gap-8">
-                <div className="max-w-lg border rounded-lg aspect-video w-full mx-auto lg:mx-0" aria-label="Planning demo">
+                <div className="max-w-lg border rounded-lg aspect-video w-full mx-auto lg:mx-0 shadow-xl" aria-label="Planning demo">
                     <div className="h-8 py-1 px-4 border-b relative flex justify-center items-center">
                         <div className="grid grid-cols-3 place-items-center gap-2 h-full w-fit absolute left-4">
                             <span className=" w-3 h-3 rounded-full bg-rose-600"></span>

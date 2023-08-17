@@ -71,7 +71,7 @@ export default function Feedback() {
             <PopoverTrigger asChild>
                 <Button variant="outline" className="bg-background/80">Feedback</Button>
             </PopoverTrigger>
-            <PopoverContent className="bg-secondary w-80">
+            <PopoverContent className="bg-secondary w-80 overflow-hidden">
                 <form className="p-4 grid gap-2" id="feedback" onSubmit={sendFeedback} ref={animate}>
                     <Textarea 
                     placeholder="Your feedback..." 

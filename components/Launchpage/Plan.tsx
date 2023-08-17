@@ -1,5 +1,7 @@
+import { cn } from "@/lib/utils";
 import { Users, Wind } from "lucide-react";
 import Image from "next/image";
+import styles from "../Components.module.scss";
 
 
 export default function Plan() {
@@ -11,14 +13,16 @@ export default function Plan() {
                 planning meets that slow your work, so you can relase faster.
             </p>
             <div className="grid place-items-center">
-                <Image
-                src="/planning.png"
-                alt=""
-                loading="lazy"
-                width={960}
-                height={484}
-                className="max-w-full"
-                />
+                <div className={cn("relative", styles.crossfade)}>
+                    <Image
+                    src="/planning.png"
+                    alt=""
+                    loading="lazy"
+                    width={960}
+                    height={484}
+                    className="max-w-full"
+                    />
+                </div>
             </div>
             <div className="grid md:grid-cols-2 gap-16 mt-16">
                 <div>

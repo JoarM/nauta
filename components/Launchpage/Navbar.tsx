@@ -30,7 +30,7 @@ export default function Navbar({ session } : { session: Session | null }) {
             <div className="invisible sr-only" aria-hidden ref={observed}></div>
             <div className={`fixed left-0 right-0 top-0 z-20 py-3 border-b border-border/50 bg-primary md:bg-primary/40 transition data-[attop=true]:border-transparent backdrop-blur-sm`} data-attop={atTop}>
                 <header className="mx-auto px-6 w-[1448px] max-w-full flex justify-between items-center">
-                    <div className="grid grid-flow-col gap-8">
+                    <div className="grid grid-flow-col place-items-center gap-8">
                         <LogoDropdown />
                         <NavSection />
                     </div>
