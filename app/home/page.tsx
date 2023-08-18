@@ -40,7 +40,7 @@ export default async function Home() {
                     <div className="lg:w-1/3 flex justify-center lg:justify-start">
                         <Link href="/" className="h-9 py-1">
                             <svg width="579" height="128" viewBox="0 0 579 128" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-9 w-44">
-                                <g clip-path="url(#clip0_14_18)">
+                                <g clipPath="url(#clip0_14_18)">
                                     <path d="M22.6465 68.0559L66.9924 1.00137L111.338 68.0559H22.6465Z" fill="currentColor"/>
                                     <path d="M41.8892 72.2889H47.8734V108.194L41.8892 101.731V72.2889Z" fill="currentColor"/>
                                     <path d="M62.5945 90.7202H68.5787V122.317L65.5866 125.907L62.5945 122.795V90.7202Z" fill="currentColor"/>

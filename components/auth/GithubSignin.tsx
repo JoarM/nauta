@@ -11,7 +11,7 @@ export default function GithubSignin() {
     const callbackUrl = callbackParam ? callbackParam : "/dashboard";
 
     return (
-        <Button onClick={() => signIn("github", { callbackUrl: callbackUrl })}>
+        <Button onClick={() => signIn("github", { callbackUrl: callbackUrl })} size="lg" className="bg-primary-foreground/70 rounded-xl w-64 max-w-full">
             <LucideGithub className="mr-2 h-4 w-4"/> Sign in with github
         </Button>
     )

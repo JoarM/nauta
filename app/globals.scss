@@ -92,10 +92,20 @@
         text-wrap: balance;
     }
 }
+
+.svh {
+    height: 100vh;
+    height: 100svh;
+}
+
+.dvh {
+    height: 100vh;
+    height: 100dvh;
+}
  
 .navdrop {
     height: calc(100vh - 61px);
-    height: calc(100svh - 61px);
+    height: calc(100dvh - 61px);
 }
 
 .dialog__width {
