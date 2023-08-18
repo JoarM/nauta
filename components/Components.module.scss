@@ -4,9 +4,9 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 3rem;
+    height: min(3rem, 1.3vw);
 
     background: linear-gradient(to top, hsl(var(--primary)), transparent 35%);
     mask: linear-gradient(to top, hsl(var(--primary)), transparent);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(min(1vw, 20px));
 }

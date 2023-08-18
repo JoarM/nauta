@@ -9,6 +9,8 @@ import { signOut } from "next-auth/react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { useTheme } from "next-themes";
+import { Skeleton } from "../ui/skeleton";
+import { useEffect, useState } from "react";
 
 export default function ProfileDropdown(
     { 
@@ -21,10 +23,15 @@ export default function ProfileDropdown(
         size?: "default" | "sm" | "lg" | null | undefined;
     }) {
     const pathname = usePathname();
-
     const user = session.user;
 
     const { theme, setTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
 
     return (
         <>
@@ -58,16 +65,20 @@ export default function ProfileDropdown(
                     <DropdownMenuGroup>
                         <div className="px-6 py-1 flex items-center justify-between group">
                             <span className="text-primary-foreground/60 group-hover:text-primary-foreground transition-colors">Theme</span>
-                            <Select value={theme} onValueChange={(e) => setTheme(e)}>
-                                <SelectTrigger className="p-2 h-8 text-sm bg-primary w-28">
-                                    <SelectValue placeholder="Theme" />
-                                </SelectTrigger>
-                                <SelectContent className="text-sm bg-background w-28">
-                                    <SelectItem value="dark">Dark</SelectItem>
-                                    <SelectItem value="light">Light</SelectItem>
-                                    <SelectItem value="system">System</SelectItem>
-                                </SelectContent>
-                            </Select>
+                            {mounted ? 
+                                <Select value={theme} onValueChange={(e) => setTheme(e)}>
+                                    <SelectTrigger className="p-2 h-8 text-sm bg-primary w-28">
+                                        <SelectValue placeholder="Theme" />
+                                    </SelectTrigger>
+                                    <SelectContent className="text-sm bg-background w-28">
+                                        <SelectItem value="dark">Dark</SelectItem>
+                                        <SelectItem value="light">Light</SelectItem>
+                                        <SelectItem value="system">System</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            :
+                                <Skeleton className="w-28 h-8 border" />
+                            }
                         </div>
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator className="mx-6 my-3"/>

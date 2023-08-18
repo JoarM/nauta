@@ -2,9 +2,20 @@
 
 import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+import { Skeleton } from "../ui/skeleton";
 
 export default function RadioThemeSwitcher() {
     const { setTheme, theme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+    
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) {
+        return <Skeleton className="h-8 w-24 p-1 border rounded-full box-content bg-secondary"/>;
+    }
 
     return (
         <menu role="radiogroup" className="rounded-full grid grid-flow-col p-1 border">
@@ -31,9 +42,9 @@ export default function RadioThemeSwitcher() {
                 </button>
             </li>
             <li>
-            <button 
+                <button 
                 role="radio" 
-                className="w-8 h-8 rounded-full inline-flex items-center justify-center text-foreground/50 hover:text-foreground/70 transition-colors aria-[current='true']:bg-foreground/5 aria-[current='true']:text-foreground/70 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring focus-visible:ring-offset-background outline-none"
+                className="w-8 h-8 rounded-full inline-flex items-center justify-center text-foreground/50 hover:text-foreground/80 transition-colors aria-[current='true']:bg-foreground/5 aria-[current='true']:text-foreground/70 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring focus-visible:ring-offset-background outline-none"
                 onClick={() => setTheme("system")}
                 aria-current={theme === "system" ? "true" : "false"}
                 >

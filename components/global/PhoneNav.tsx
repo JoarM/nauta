@@ -6,10 +6,19 @@ import { Menu, X, ExternalLink } from "lucide-react";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { useTheme } from "next-themes";
+import { Skeleton } from "../ui/skeleton";
 
 export default function PhoneNav({ session }: { session: Session | null }) {
     const [menuOpen, setMenuOpen] = useState(false);
+    const { setTheme, theme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+    
+    useEffect(() => {
+        setMounted(true);
+    }, [])
 
     return (
         <div className="md:hidden group" aria-expanded={menuOpen}>
@@ -39,6 +48,23 @@ export default function PhoneNav({ session }: { session: Session | null }) {
                             <Link href="/account" className="hover:bg-background focus-visible:bg-background outline-none py-4 block text-muted-foreground transition-colors">
                                 Settings
                             </Link>
+                        </li>
+                        <li className="border-b py-4 flex items-center justify-between hover:bg-background focus-within:bg-background">
+                            <span className="text-muted-foreground">Theme</span>
+                            {mounted ? 
+                                <Select value={theme} onValueChange={(e) => setTheme(e)}>
+                                    <SelectTrigger className="p-2 h-8 text-sm bg-primary w-28">
+                                        <SelectValue placeholder="Theme" />
+                                    </SelectTrigger>
+                                    <SelectContent className="text-sm bg-background w-28">
+                                        <SelectItem value="dark">Dark</SelectItem>
+                                        <SelectItem value="light">Light</SelectItem>
+                                        <SelectItem value="system">System</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            :
+                                <Skeleton className="w-28 h-8 border" />
+                            }
                         </li>
                         <li className="border-b">
                             <button onClick={() => signOut()} className="hover:bg-background focus-visible:bg-background outline-none py-4 w-full text-start text-muted-foreground transition-colors">
