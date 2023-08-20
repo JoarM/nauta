@@ -9,6 +9,7 @@ import Image from "next/image";
 import { Github, Twitter } from "lucide-react";
 import { Metadata } from "next";
 import RadioThemeSwitcher from "@/components/global/RadioThemeSwitcher";
+import Continue from "@/components/Launchpage/Continue";
 
 export const metadata: Metadata = {
     title: "Nauta: Quick. Graceful. Planning. For the best dev teams",
@@ -34,6 +35,7 @@ export default async function Home() {
                 <Hero />
                 <Plan />
                 <Elegance />
+                <Continue />
             </main>
             <footer className="py-12 border-t">
                 <nav className="flex flex-col lg:flex-row mx-auto w-[1248px] max-w-full px-6">
