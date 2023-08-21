@@ -51,25 +51,21 @@ export default function PlanningBoard({ intialStages, id } : { intialStages: Sta
     function handleDragEnd(e: DragEndEvent) {
         const {active, over} = e;
         if (!over) return;
-        console.log(active, over);
 
         const activeStage = active.data.current?.stageIndex;
         const overObject = getOverStage(over);
         if (overObject === null) return; 
         const {stage: overStage, item: overIsItem} = overObject;
         if (activeStage === null || activeStage === undefined || overStage === null) return;
-        console.log("1");
 
         const activeIndex = stages[activeStage].tasks.findIndex(task => task.id === active.id);
         let overIndex = stages[overStage].tasks.findIndex(task => task.id === over.id);
         if (!overIsItem) overIndex = 0;
         if (activeIndex === -1 || overIndex === -1) return;
-        console.log("2");
 
         const mutatedStages = stages;
 
         if (activeStage === overStage) {
-            console.log("3");
             mutatedStages[overStage].tasks = arrayMove(stages[overStage].tasks, activeIndex, overIndex);
 
             updateDoc(doc(db, "projects", id), {
