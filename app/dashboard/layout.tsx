@@ -1,5 +1,5 @@
 import ClientAuthProvider from "@/components/auth/ClientAuthProvider";
-import Navbar from "@/components/global/Navbar";
+import Navbar from "@/components/dashboard/Navbar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

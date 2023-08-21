@@ -1,5 +1,5 @@
 import JoinProject from "@/components/dashboard/JoinProject";
-import Navbar from "@/components/global/Navbar";
+import Navbar from "@/components/dashboard/Navbar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { authOptions } from "@/lib/auth/authOptions";

@@ -38,7 +38,7 @@ export default async function Continue() {
                     </CardContent>
                     <CardFooter>
                         <Button asChild size="sm" variant="ghost" className="ml-auto">
-                            <Link href="/docs">
+                            <Link href="/contact">
                                 <span>Contact</span>
                                 <ExternalLink className="ml-2 w-4 h-4" />
                             </Link>
