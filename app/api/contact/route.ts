@@ -1,8 +1,8 @@
 import { authOptions } from "@/lib/auth/authOptions";
-import { db } from "@/lib/firebase";
-//import { db } from "@/lib/firebase-admin";
+//import { db } from "@/lib/firebase";
+import { db } from "@/lib/firebase-admin";
 import { ZodContact } from "@/lib/schemas";
-import { addDoc, collection } from "firebase/firestore";
+//import { addDoc, collection } from "firebase/firestore";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -17,8 +17,8 @@ export async function POST(req: NextRequest) {
 
     if (parse.success) {
         try {
-            //db.collection("contact").add(data);
-            addDoc(collection(db, "contact"), data);
+            db.collection("contact").add(data);
+            //addDoc(collection(db, "contact"), data);
             return NextResponse.json({  }, { status: 200 });
         } catch (error) {
             return NextResponse.json({ error: "An error occured when saving sending your message please try again later" }, { status: 500 });
