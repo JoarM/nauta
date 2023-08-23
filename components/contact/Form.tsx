@@ -40,6 +40,9 @@ export default function Form() {
         } else {
             form.current?.reset();
 
+            const message = await res.json();
+            console.log(message);
+
             toast({
                 title: "Thanks for your message",
                 description: "Thanks for messaging us we will get back to you as soon as possible",

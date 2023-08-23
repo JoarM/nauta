@@ -8,7 +8,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions);
-    if (!session) return NextResponse.json({ error: "Unatuenticated" }, { status: 401 });
+    if (!session) return NextResponse.json({ error: "You need to be logged in to contact us" }, { status: 401 });
     if (req.credentials != "same-origin") return NextResponse.json({ error: "Not same origion" }, { status: 403 });
 
     const data = await req.json();
@@ -17,9 +17,9 @@ export async function POST(req: NextRequest) {
 
     if (parse.success) {
         try {
-            db.collection("contact").add(data);
+            const docRef = await db.collection("contact").add(data);
             //addDoc(collection(db, "contact"), data);
-            return NextResponse.json({  }, { status: 200 });
+            return NextResponse.json({ message: docRef }, { status: 200 });
         } catch (error) {
             return NextResponse.json({ error: "An error occured when saving sending your message please try again later" }, { status: 500 });
         }
