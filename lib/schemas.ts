@@ -77,7 +77,12 @@ const ZodFeedback = z.object({
         z.literal("Horrible")
     ]),
 });
- 
+
+const ZodContact = z.object({
+    email: z.string().email({message: "U must input a valid email"}),
+    name: z.string().min(1, {message: "Please enter a name"}),
+    message: z.string().min(1, {message: "Please write something to us"}).max(200, {message: "Message cant be more then 200 characthers"}),
+});
 
 export type { Project, Stage, Alert, Member, Task, ReducedProject };
-export { ZodTask, ZodStage, ZodProject, ZodFeedback };
+export { ZodTask, ZodStage, ZodProject, ZodFeedback, ZodContact };
