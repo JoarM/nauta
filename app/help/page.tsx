@@ -6,6 +6,7 @@ import { BookOpen } from "lucide-react";
 import { getServerSession } from "next-auth";
 import styles from "./Help.module.scss";
 import Link from "next/link";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export default async function help() {
     const session = await getServerSession(authOptions);
@@ -27,6 +28,36 @@ export default async function help() {
                         >message us</Link>
                         </h2>
                     </div>
+                </div>
+                <div className="w-[1248px] max-w-full px-6 md:px-0 mx-auto mt-8">
+                    <Accordion type="single" collapsible>
+                        <AccordionItem value="item-1">
+                            <AccordionTrigger>
+                                Is Nauta free?
+                            </AccordionTrigger>
+                            <AccordionContent className="text-base text-foreground/70">
+                                Nauta is currently completly free to use and open source tho this might come to change in the future.
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-2">
+                            <AccordionTrigger>
+                                Can you login without github?
+                            </AccordionTrigger>
+                            <AccordionContent className="text-base text-foreground/70">
+                                No github is currently the only login provider we allow, other alternatives might be added in the future. 
+                                To create a github account go to <Link href="https://github.com/signup" className="hover:underline focus-visible:underline whitespace-nowrap text-foreground">https://github.com/signup</Link>.
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-3">
+                            <AccordionTrigger>
+                                How do I keyboard navigate?
+                            </AccordionTrigger>
+                            <AccordionContent className="text-base text-foreground/70">
+                                To keyboard navigate simply focus the drag handle of the desired item, press space to grab the item, 
+                                now you can move the item via your arrow keys, to relase the item press space again or to canel click esc.
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
                 </div>
             </main>
             <Footer />

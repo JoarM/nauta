@@ -36,8 +36,9 @@ export default async function projectPage({ params }: { params: { id: string } }
                         <Members
                         members={project.members}
                         id={data.id}
-                        owner={session.user.email}
+                        owner={project.owner}
                         projectTitle={project.title}
+                        currentUser={session.user.email}
                         />
                     </MenubarMenu>
                     

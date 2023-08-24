@@ -7,22 +7,15 @@ import { Plus, Users } from "lucide-react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 import MemberCard from "./Membercard";
 import LoadingButton from "../global/LoadingButton";
 import { useToast } from "../ui/use-toast";
 
-export default function Members({ members, id, owner, projectTitle } : { members: Member[], id: string, owner: string, projectTitle: string }) {
+export default function Members({ members, id, owner, projectTitle, currentUser } : { members: Member[], id: string, owner: string, projectTitle: string, currentUser: string }) {
     const [to, setTo] = useState("");
     const [sending, setSending] = useState(false);
     const { toast } = useToast();
-
-    const sortedMembers = useMemo(() => {
-        return members.sort((a, b) => {
-            if (b.email === owner) return 1;
-            return 0; 
-        });
-    }, [members, owner]);
 
     function inviteMember(e: FormEvent) {
         e.preventDefault();
@@ -96,12 +89,13 @@ export default function Members({ members, id, owner, projectTitle } : { members
                 </form>
                 <Separator />
                 <div className="overflow-y-auto divide-y divide-border p-4 border rounded-lg">
-                    {sortedMembers.map((member) => 
+                    {members.map((member) => 
                         <MemberCard
                         member={member}
-                        owner={member.email === owner}
+                        owner={owner}
                         key={member.email}
                         projectId={id}
+                        currentUser={currentUser}
                         />
                     )}
                 </div>

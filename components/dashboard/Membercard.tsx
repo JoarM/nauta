@@ -14,12 +14,14 @@ export default function MemberCard(
         member, 
         owner, 
         projectId, 
+        currentUser,
     } 
     : 
     { 
         member: Member; 
-        owner: boolean;
+        owner: string;
         projectId: string;
+        currentUser: string;
     }) 
     {
     const { toast } = useToast();
@@ -52,7 +54,7 @@ export default function MemberCard(
                 <span className="text-base leading-none">{ member.name }</span>
                 <span className="text-sm leading-none text-muted-foreground">{ member.email }</span>
             </div>
-            {!owner && 
+            {(owner === currentUser && owner != member.email) && 
                 <Button variant="destructive" size="icon" className="ml-auto" onClick={removeUser}>
                     <UserX className="w-4 h-4"/>
                     <span className="sr-only">Remove user</span>
