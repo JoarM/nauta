@@ -42,7 +42,7 @@ export default function Navbar({ session } : { session: Session | null }) {
                     </div>
                     {session ? 
                         <div className="inline-flex items-center gap-2">
-                            <Button asChild variant="ghost" size="sm" className={`transition-opacity duration-200 ${!atTop && "opacity-0 pointer-events-none"}`}>
+                            <Button asChild variant="ghost" size="sm" className={`transition-opacity duration-200 hidden md:inline-flex ${!atTop && "opacity-0 pointer-events-none"}`}>
                                 <Link href="/contact">
                                     Contact
                                 </Link>

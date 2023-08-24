@@ -1,0 +1,26 @@
+.gradient::after {
+    border-radius: 64px;
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background-image: radial-gradient(50% 50% at 50% 50%,rgba(74, 222, 128,.2) 0,rgba(74, 222, 128,.4) 100%);
+    filter: blur(35px);
+    height: 120px;
+    left: -3px;
+    top: -18px;
+    width: 120px;
+}
+
+.gradient::before {
+    border-radius: 64px;
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background-image: radial-gradient(50% 50% at 50% 50%,rgba(34, 211, 238,.3) 0,rgba(34, 211, 238,.2) 100%);
+    filter: blur(20px);
+    height: 143px;
+    left: -24px;
+    top: -50px;
+    transform: rotate(30.58deg);
+    width: 70px;
+}
