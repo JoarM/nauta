@@ -4,10 +4,8 @@ import { Member } from "@/lib/schemas";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { UserX } from "lucide-react";
-import { arrayRemove, doc, updateDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
-import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
+import { useToast } from "../ui/use-toast";
 
 export default function MemberCard(
     { 
@@ -24,24 +22,30 @@ export default function MemberCard(
         currentUser: string;
     }) 
     {
-    const { toast } = useToast();
     const router = useRouter();
+    const { toast } = useToast();
     
-    function removeUser() {
-        updateDoc(doc(db, "projects", projectId), {
-            memberEmails: arrayRemove(member.email),
-            members: arrayRemove(member),
-        })
-        .then(() => {
-            router.refresh();
-        })
-        .catch(() => {
-            toast({
-                title: "Error removing user",
-                description: "An error occured when removing the user please try again soon.",
-                duration: 5000,
-            })
+    async function removeUser() {
+        const res = await fetch(`/api/project/${projectId}/members`, {
+            method: "PUT",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(member),
         });
+
+        if (res.ok) {
+            router.refresh();
+        } else {
+            const error = await res.json();
+
+            toast({
+                title: "An error occured",
+                description: error.error,
+                duration: 5000,
+            });
+        }
     }
 
     return (

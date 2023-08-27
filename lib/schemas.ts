@@ -53,17 +53,18 @@ type Member = {
     email: string;
 }
 
+const ZodMember = z.object({
+    name: z.string().min(1),
+    email: z.string().email(),
+    photoUrl: z.string(),
+});
+
 type ReducedProject = {
     title: string;
     description: string;
     owner: boolean;
     id: string;
     members: Member[];
-}
-
-type FeedbackSchema = {
-    feedback: string,
-
 }
 
 const ZodFeedback = z.object({
@@ -85,4 +86,4 @@ const ZodContact = z.object({
 });
 
 export type { Project, Stage, Alert, Member, Task, ReducedProject };
-export { ZodTask, ZodStage, ZodProject, ZodFeedback, ZodContact };
+export { ZodTask, ZodStage, ZodProject, ZodFeedback, ZodContact, ZodMember };

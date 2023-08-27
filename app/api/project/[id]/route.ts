@@ -1,7 +1,6 @@
 import { authOptions } from "@/lib/auth/authOptions";
-import { db } from "@/lib/firebase";
+import { db } from "@/lib/firebase-admin";
 import { ZodProject } from "@/lib/schemas";
-import { doc, updateDoc } from "firebase/firestore";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -23,11 +22,10 @@ export async function PUT(req: NextRequest, { params } : { params: { id: string 
     }
 
     try {
-        await updateDoc(doc(db, "projects", params.id), {
+        await db.doc(`projects/${params.id}`).update({
             title: title,
             description: description
         });
-
         return NextResponse.json({ message: "Updated successfully" }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ error: "Failed to save changes please try again soon." }, { status: 500 });

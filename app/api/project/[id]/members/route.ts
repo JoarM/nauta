@@ -3,19 +3,20 @@ import { NextRequest, NextResponse } from "next/server";
 import { createTransport } from "nodemailer";
 import { render } from "@react-email/render";
 import InviteTemplate from "@/lib/emailTemplates/invite";
-import { Member } from "@/lib/schemas";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { Member, ZodMember } from "@/lib/schemas";
 import { authOptions } from "@/lib/auth/authOptions";
+import { db } from "@/lib/firebase-admin";
+import { FieldValue } from "firebase-admin/firestore";
 
-export async function PUT(req: NextRequest) {
+export async function PUT(req: NextRequest,  { params } : { params: { id: string } }) {
     if (req.credentials != "same-origin") return NextResponse.json({ error: "Not same origion" }, { status: 403 });
     const session = await getServerSession(authOptions);
     if (!session || !session.user) return NextResponse.json({ error: "Unatuenticated" }, { status: 401 });
 
     const data = await req.json();
 
-    const { to, projectId, projectTitle } = data;
+    const { to, projectTitle } = data;
+    const projectId = params.id;
 
     const host = req.headers.get("host");
     if (!host) return NextResponse.json({ error: "No host" }, { status: 500 });
@@ -75,13 +76,36 @@ export async function PATCH(req: NextRequest, { params } : { params: { id: strin
     }
 
     try {
-        await updateDoc(doc(db, "projects", params.id), {
-            members: arrayUnion(user),
-            memberEmails: arrayUnion(session.user.email),
+        await db.doc(`projects/${params.id}`).update({
+            members: FieldValue.arrayUnion(user),
+            memberEmails: FieldValue.arrayUnion(session.user.email),
         });
         return NextResponse.json({ message: "Joined project successfully." }, { status: 200 });
     } catch (error) {
-        console.log(error);
         return NextResponse.json({ error: "An error occured when joining the project please try agian soon." }, { status: 500 });
+    }
+}
+
+export async function DELETE(req: NextRequest, { params } : { params: { id: string } }) {
+    if (req.credentials != "same-origin") return NextResponse.json({ error: "Not same origion" }, { status: 403 });
+    const session = await getServerSession(authOptions);
+    if (!session) return NextResponse.json({ error: "Unatuenticated" }, { status: 401 });
+
+    const data = await req.json();
+
+    const parse = await ZodMember.safeParseAsync(data);
+
+    if (parse.success) {
+        try {
+            await db.doc(`projects/${params.id}`).update({
+                memberEmails: FieldValue.arrayRemove(data.email),
+                members: FieldValue.arrayRemove(data),
+            });
+            return NextResponse.json({  }, { status: 200 });
+        } catch (error) {
+            return NextResponse.json({ error: "An error occured when joining the project please try agian soon." }, { status: 500 });
+        }
+    } else {
+        return NextResponse.json({ error: "Incorrect parameters." }, { status: 400 });
     }
 }

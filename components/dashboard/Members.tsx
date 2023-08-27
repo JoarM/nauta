@@ -29,7 +29,6 @@ export default function Members({ members, id, owner, projectTitle, currentUser 
             },
             body: JSON.stringify({
                 to: to,
-                projectId: id,
                 projectTitle: projectTitle
             }),
         })
