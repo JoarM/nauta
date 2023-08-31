@@ -1,7 +1,6 @@
 import { authOptions } from "@/lib/auth/authOptions";
 import { db } from "@/lib/firebase-admin";
 import { Project, ZodProject } from "@/lib/schemas";
-import { Timestamp } from "firebase/firestore";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -21,7 +20,7 @@ export async function POST(req: NextRequest) {
     if (parse.success) {
         if (!session.user?.email || !session.user.name || !session.user.image) return NextResponse.json({ error: "Unatuenticated" }, { status: 401 });
         const project: Project = {
-            createdAt: Timestamp.now(),
+            createdAt: FirebaseFirestore.Timestamp.now(),
             title: title as string,
             description: description as string,
             owner: session.user?.email,
