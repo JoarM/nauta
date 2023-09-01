@@ -38,15 +38,6 @@ const ZodStage = z.string()
 .min(1, { message: "A stage must have a title."})
 .max(32, { message: "Stage titles may not be more than 32 characthers." });
 
-const ZodStages = z.array(z.object({
-    tasks: z.object({
-        task: z.string().min(1),
-        id: z.string().min(1),
-    }),
-    title: z.string().min(1),
-    id: z.string().min(1),
-}));
-
 type Task = {
     id: string;
     task: string;
@@ -95,4 +86,4 @@ const ZodContact = z.object({
 });
 
 export type { Project, Stage, Alert, Member, Task, ReducedProject };
-export { ZodTask, ZodStage, ZodProject, ZodFeedback, ZodContact, ZodMember, ZodStages };
+export { ZodTask, ZodStage, ZodProject, ZodFeedback, ZodContact, ZodMember };

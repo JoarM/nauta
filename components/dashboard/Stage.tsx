@@ -34,10 +34,9 @@ export default function StageComponent({
 } : StageInterface) {
     const { toast } = useToast();
     const [taskOpen, setTaskOpen] = useState(false);
+    const [updating, setUpdating] = useState(false);
     const [newTask, setNewTask] = useState("");
     const [creating, setCreating] = useState(false);
-    const [updateTitle, setUpdateTitle] = useState(title);
-    const [updating, setUpdating] = useState(false);
     const [updateOpen, setUpdateOpen] = useState(false);
     const { setNodeRef } = useDroppable({id: id});
 
@@ -97,37 +96,40 @@ export default function StageComponent({
         });
     }
 
-    async function updateStage(e: FormEvent) {
-        e.preventDefault();
+    async function updateStage(formData: FormData) {
+        const title = formData.get("title")?.toString();
+
+        const parse = await ZodStage.safeParseAsync(title);
+        
+
+        if (!parse.success || !title) {
+            return; 
+        }
         setUpdating(true);
 
-        const parse = await ZodStage.safeParseAsync(updateTitle);
+        const res = await fetch(`/api/project/${projectId}/stages`, {
+            method: "PATCH",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                title: title,
+                index: index,
+            }),
+        });
 
-        if(parse.success) {
-            stages[index].title = updateTitle;
-
-            updateDoc(doc(db, "projects", projectId), {
-                stages: stages,
-            })
-            .catch(() => {
-                toast({
-                    title: "Error updating",
-                    description: "An error occured when trying to update please try agian soon",
-                    duration: 5000,
-                });
-            })
-            .finally(() => {
-                setUpdating(false);
-            });
+        if (res.ok) {
             setUpdateOpen(false);
         } else {
+            const data = await res.json();
             toast({
-                title: "Invalid title",
-                description: parse.error.issues.at(0)?.message,
-                duration: 5000
+                title: "Whooops something went wrong",
+                description: data.error,
+                duration: 5000,
             });
-            setUpdating(false);
         }
+        setUpdating(false);
     }
 
     function movePrev() {
@@ -227,9 +229,9 @@ export default function StageComponent({
                             <DialogHeader>
                                 <DialogTitle>Edit stage {title}</DialogTitle>
                             </DialogHeader>
-                            <form className="grid gap-2" id="update" onSubmit={updateStage}>
+                            <form className="grid gap-2" id="update" action={updateStage}>
                                 <Label>Title</Label>
-                                <Input placeholder="title" value={updateTitle} onChange={(e) => setUpdateTitle(e.target.value)} disabled={updating} />  
+                                <Input placeholder="title" name="title" defaultValue={title} disabled={updating} />  
                             </form>
                             <DialogFooter>
                                 {updating ? <LoadingButton>Updating</LoadingButton> : <Button form="update">Update</Button>}
