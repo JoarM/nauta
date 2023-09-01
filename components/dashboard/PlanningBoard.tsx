@@ -80,7 +80,6 @@ export default function PlanningBoard({ intialStages, id } : { intialStages: Sta
             });
         } 
         else {
-            console.log("4")
             mutatedStages[overStage].tasks.splice(overIndex, 0, stages[activeStage].tasks[activeIndex]);
             mutatedStages[activeStage].tasks.splice(activeIndex, 1);
 
@@ -118,8 +117,23 @@ export default function PlanningBoard({ intialStages, id } : { intialStages: Sta
         onDragEnd={handleDragEnd}
         collisionDetection={closestCenter}
         >
-            {stages.map((stage, index) => <StageComponent {...stage} stages={stages} index={index} key={stage.id} projectId={id} />)}
-            <DragOverlay>{activeTask ? <DummyTask task={activeTask.task}/> : null}</DragOverlay>
+            {stages.map((stage, index) => 
+                <StageComponent 
+                stage={stage} 
+                stages={stages} 
+                index={index} 
+                projectId={id} 
+                key={stage.id} 
+                />
+            )}
+            <DragOverlay>
+                {
+                    activeTask ? 
+                    <DummyTask task={activeTask.task} /> 
+                    : 
+                    null
+                }
+            </DragOverlay>
         </DndContext>
     )
 }
