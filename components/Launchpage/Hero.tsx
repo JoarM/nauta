@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 
 export default function Hero() {
     const [current, setCurrent] = useState(3);
-    setTimeout(() => setCurrent(prev => prev + 1), 2000);
+    useEffect(() => {
+        setInterval(() => setCurrent(prev => prev + 1), 2000);
+    }, [])
 
     return (
         <div className="mx-auto w-[1248px] max-w-full px-6">
