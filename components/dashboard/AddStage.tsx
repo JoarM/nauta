@@ -19,7 +19,7 @@ export default function AddStage({ id } : { id: string }) {
     async function createStage(formData: FormData) {
         const title = formData.get("title")?.valueOf();
 
-        const res = await fetch(`/api/project/${id}/stages`, {
+        const res = await fetch(`/api/project/${id}/stage`, {
             method: "POST",
             cache: "no-cache",
             headers: {

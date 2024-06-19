@@ -7,7 +7,7 @@ import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-ki
 import TaskComponent from "./Task";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import LoadingButton from "../global/LoadingButton";
 import { useToast } from "../ui/use-toast";
 import { doc, updateDoc } from "firebase/firestore";
@@ -17,38 +17,35 @@ import { useDroppable } from "@dnd-kit/core";
 
 interface StageInterface {
     stages: Stage[];
-    tasks: Task[];
-    title: string;
-    id: string;
+    stage: Stage;
     index: number;
     projectId: string;
 }
 
 export default function StageComponent({
-    stages,
-    tasks,
-    title,
-    id,
+    stages, // Todo remove prop when component is refactored
+    stage,
     index,
     projectId
 } : StageInterface) {
+    const { id, title, tasks } = stage;
+
     const { toast } = useToast();
     const [taskOpen, setTaskOpen] = useState(false);
     const [updating, setUpdating] = useState(false);
-    const [newTask, setNewTask] = useState("");
     const [creating, setCreating] = useState(false);
     const [updateOpen, setUpdateOpen] = useState(false);
     const { setNodeRef } = useDroppable({id: id});
 
-    async function createTask(e: FormEvent) {
-        e.preventDefault();
+    async function createTask(formData: FormData) {
         setCreating(true);
+        const newTask = formData.get("newTask")?.toString();
 
         const parse = await ZodTask.safeParseAsync(newTask);
 
         if (parse.success) {
             const task: Task = {
-                task: newTask,
+                task: newTask as string,
                 id: crypto.randomUUID(),
             }
 
@@ -58,7 +55,6 @@ export default function StageComponent({
                 stages: stages,
             })
             .then(() => {
-                setNewTask("");
                 setTaskOpen(false);
             })
             .catch(() => {
@@ -81,19 +77,26 @@ export default function StageComponent({
         }
     }
 
-    function deleteStage() {
-        stages.splice(index, 1);
+    async function deleteStage() {
+        const res = await fetch(`/api/project/${projectId}/stage`, {
+            method: "DELETE",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: id,
+            }),
+        });
 
-        updateDoc(doc(db, "projects", projectId), {
-            stages: stages,
-        })
-        .catch(() => {
+        if (!res.ok) {
+            const data = await res.json();
             toast({
-                title: "Error deleteing stage",
-                description: "An error occured when trying to delete the stage please try again soon",
+                title: "Whooops something went wrong",
+                description: data.error,
                 duration: 5000,
             });
-        });
+        }
     }
 
     async function updateStage(formData: FormData) {
@@ -107,7 +110,7 @@ export default function StageComponent({
         }
         setUpdating(true);
 
-        const res = await fetch(`/api/project/${projectId}/stages`, {
+        const res = await fetch(`/api/project/${projectId}/stage`, {
             method: "PATCH",
             cache: "no-cache",
             headers: {
@@ -184,7 +187,16 @@ export default function StageComponent({
                     id={id}
                     strategy={verticalListSortingStrategy}
                     >
-                        {tasks.map((task, taskIndex) => <TaskComponent {...task} stageIndex={index} key={task.id} index={taskIndex} stages={stages} projectId={projectId} />)}
+                        {tasks.map((task, taskIndex) => 
+                            <TaskComponent 
+                            {...task} 
+                            stageIndex={index} 
+                            key={task.id} 
+                            index={taskIndex} 
+                            stages={stages} 
+                            projectId={projectId} 
+                            />
+                        )}
                     </SortableContext>
                 </ul>
             </CardContent>
@@ -202,9 +214,9 @@ export default function StageComponent({
                                 <DialogTitle>Create task</DialogTitle>
                                 <DialogDescription>Create a new task</DialogDescription>
                             </DialogHeader>
-                            <form id="newTask" className="grid gap-2" onSubmit={createTask}>
+                            <form id="newTask" className="grid gap-2" action={createTask}>
                                 <Label>Task description</Label>
-                                <Input placeholder="task" value={newTask} onChange={(e) => setNewTask(e.target.value)} disabled={creating} />
+                                <Input placeholder="task" name="newTask" disabled={creating} />
                             </form>
                             <DialogFooter>
                                 {creating ? 
